@@ -7,7 +7,6 @@
       <div class="screen-title">
         {{ screenTitle }}
       </div>
-      <!-- <img src="../assets/image/Slice 1@2x.png" style="width: 1047px; height: 46px;"/> -->
     </div>
     <div class="bar-right">
       <span>{{ nowtime }}</span>
@@ -55,13 +54,10 @@ export default {
 
   font-size: 28px;
   font-family: Source Han Sans CN-Heavy, Source Han Sans CN;
-  font-weight: bolder;
+  font-weight: 800;
   color: #D6E8FE;
-  /* line-height: 32px; */
   letter-spacing: 6px;
   text-shadow: 0px 2px 2px rgba(0,0,0,0.5);
-  /* -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; */
 }
 .bar-right {
   font-size: 20px;
