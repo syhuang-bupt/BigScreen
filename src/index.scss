@@ -1,37 +1,19 @@
 @import "reset.css";
 
-#main-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  background-image: url('./assets/image/video.png');
-  background-size: cover;
+body {
+  height: 100%;
+  margin: 0;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
 
-#top-bar {
-  flex: 1; // 顶部栏和主题部分比例
-  height: 60px;
-  background-color: blue;
+html {
+  height: 100%;
+  box-sizing: border-box;
 }
 
-#main-content {
-  flex: 17; // 顶部栏和主题部分比例
-  display: flex;
-  justify-content: space-between;
+#app {
+  height: 100%;
 }
-
-#left-content {
-  flex: 274;
-  background-image: url('./assets/image/Slice\ 2@2x.png');
-  background-size: cover;
-  // background-color: #78d5f7;
-}
-#center-content {
-  flex: 412;
-}
-#right-content {
-  flex: 274;
-  // background-color: #e8f5a1;
-}
-

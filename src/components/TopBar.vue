@@ -30,7 +30,7 @@ export default {
 <style scoped>
 .top-bar {
   background-image: url('../assets/image/top-bar-bgc.png');
-  height: 46px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,7 +39,7 @@ export default {
   padding-left: 12px;
 }
 #logo {
-  height: 23px;
+  height: 30px;
 }
 .bar-center {
   /* height: 46px; */
@@ -47,24 +47,24 @@ export default {
 .screen-title {
   background-image: url('../assets/image/Slice 1@2x.png');
   background-size: cover;
-  width: 1047px;
-  height: 46px;
+  width: 1366px;
+  height: 60px;
   display: flex;
   justify-content:center;
   align-items:center;
 
-  font-size: 20px;
+  font-size: 28px;
   font-family: Source Han Sans CN-Heavy, Source Han Sans CN;
-  font-weight: 800;
+  font-weight: bolder;
   color: #D6E8FE;
-  line-height: 16px;
+  /* line-height: 32px; */
   letter-spacing: 6px;
   text-shadow: 0px 2px 2px rgba(0,0,0,0.5);
   /* -webkit-background-clip: text;
   -webkit-text-fill-color: transparent; */
 }
 .bar-right {
-  font-size: 12px;
+  font-size: 20px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN !important;
   font-weight: 400;
   color: white;

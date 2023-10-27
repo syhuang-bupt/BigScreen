@@ -10,7 +10,7 @@
             <LeftDevice></LeftDevice>
           </div>
           <div class="rightModule">
-            <RightState></RightState>
+
           </div>
           <!-- <div class="centerModule"></div> -->
           <div class="bottomModule">
@@ -26,7 +26,6 @@
 import AutoScreen from './components/AutoScreen/index.vue'
 import TopBar from './components/TopBar.vue'
 import LeftDevice from './components/LeftDevice/index.vue'
-import RightState from './components/RightState/index.vue'
 
 </script>
 
