@@ -1,7 +1,8 @@
 <template>
   <div class="left-device">
-    <div class="left-arrow">
-      <img src="../../assets/image/Slice 25@2x.png">
+    <div class="left-arrow" @click="leftArrowClick">
+      <img v-if="props.leftArrowState" src="../../assets/image/Slice 25@2x.png">
+      <img v-else src="../../assets/image/Slice 24@2x.png">
     </div>
     <div class="top-device">
       <div class="device-title">
@@ -9,7 +10,7 @@
         <span style="margin-left: 6px;">无人机图片</span>
       </div>
       <div class="top-device-content">
-        <SwiperComponent :images="images"></SwiperComponent>
+        <SwiperComponent></SwiperComponent>
       </div>
     </div>
     <!-- <div style="clear:both;"></div> -->
@@ -55,7 +56,7 @@
             <span>{{ deviceLog.closeTime }}</span>
           </div>
           <div class="device-content-listitem">
-            <span>运行时常: </span>
+            <span>运行时长: </span>
             <span>{{ deviceLog.runTime }}</span>
           </div>
           <div class="device-content-listitem">
@@ -70,16 +71,20 @@
 
 <script setup>
 import SwiperComponent from '../SwiperComponent/index.vue'
-import { reactive } from 'vue';
-const images = reactive([
-  'https://s2.loli.net/2023/10/25/2npqslIUkeEFQ9o.png','https://s2.loli.net/2023/10/26/nTmqwG7JH4cKVNR.png',
-  'https://s2.loli.net/2023/10/26/bXVAZqSlIe74tDY.png','https://s2.loli.net/2023/10/26/Cc4hlIkZnawdWRu.png'
-])
+import { reactive, ref } from 'vue';
+
+let fnEmit = defineEmits(['dropLeft']);
+let props = defineProps({
+  leftArrowState: {
+    type: Boolean
+  }
+})
+let arrowState = ref(true);
 const deviceInformation = reactive({
   deviceinfo: '南京电信无线中心大疆机库的无人机',
   devicetype: '无人机',
-  devicemodel: 'M30_SERIES',
-  devicepower: '100%'
+  devicemodel: 'M300',
+  devicepower: '90%'
 })
 const deviceLog = reactive({
   startTime: '2023/10/14 11:01:01',
@@ -87,6 +92,10 @@ const deviceLog = reactive({
   runTime: '1440分钟',
   abnormalCondition: '无异常情况'
 })
+const leftArrowClick = () => {
+  fnEmit('dropLeft', arrowState);
+  arrowState = !arrowState
+}
 </script>
 
 <style scoped>
@@ -94,9 +103,16 @@ const deviceLog = reactive({
   position: relative;
 }
 .left-arrow {
+  /* background-color: green; */
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  right: 6%;
-  top: 50%;
+  right: 3%;
+  top: 49%;
+  cursor:pointer;
 }
 .top-device {
   width: 375px;

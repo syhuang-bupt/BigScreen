@@ -26,7 +26,6 @@
       default: 1080
     }
   });
-  
   const init = () => {
     setScale();
     window.addEventListener('resize', debounce(setScale));
@@ -44,13 +43,11 @@
       }, delays);
     };
   };
-  
   const setScale = () => {
     let ww = document.documentElement.clientWidth / props.width;
     let wh = document.documentElement.clientHeight / props.height;
     scale.value = ww < wh ? ww : wh;
   };
-  
   init();
   </script>
   

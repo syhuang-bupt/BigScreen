@@ -1,5 +1,6 @@
 <template>
   <div class="devide-group">
+
     <div class="devide-group-title">分组</div>
     <el-select v-model="value" class="select-style" placeholder="Select" size="small">
       <el-option
@@ -12,27 +13,82 @@
     </el-select>
   </div>
   <div class="devide-group-list">
-    <div v-if="value === 'weatherStation'" class="devide-group-listitem" v-for="(item, index) in devideGroupListData_WeatherStation" :key="'weatherStation' + index">
-      <div>{{ item.name }}</div>
-      <div>{{ item.value }}</div>
+    <div v-if="value === 'weatherStation'">
+      <div class="devide-group-listitem">
+        <div>实际温度值</div>
+        <div>{{ weatherStation.airconditioner }}</div>
+      </div>
+      <div  class="devide-group-listitem">
+        <div>温度值</div>
+        <div>{{ weatherStation.weatherstation_temperature }}</div>
+      </div>
+      <div  class="devide-group-listitem">
+        <div>湿度</div>
+        <div>{{ weatherStation.weatherstation_humidity }}</div>
+      </div>
+      <div  class="devide-group-listitem">
+        <div>风速</div>
+        <div>{{ weatherStation.weatherstation_windvelocity }}</div>
+      </div>
+      <div  class="devide-group-listitem">
+        <div>风向</div>
+        <div>{{ weatherStation.weatherstation_winddirection }}</div>
+      </div>
+      <div  class="devide-group-listitem">
+        <div>雨量</div>
+        <div>{{ weatherStation.weatherstation_rainfall }}</div>
+      </div>
     </div>
-    <div v-else-if="value === 'power'" class="devide-group-listitem" v-for="(item, index) in devideGroupListData_Power" :key="'power' + index">
-      <div>{{ item.name }}</div>
-      <div>{{ item.value }}</div>
+    <div v-else-if="value === 'power'">
+      <div class="devide-group-listitem">
+        <div>充电设备</div>
+        <div>{{ charge.chargingdevice }}</div>
+      </div>
+      <div  class="devide-group-listitem">
+        <div>充电电压</div>
+        <div>{{ charge.chargingdevice_voltage }}</div>
+      </div>
+      <div  class="devide-group-listitem">
+        <div>充电电流</div>
+        <div>{{ charge.chargingdevice_current }}</div>
+      </div>
     </div>
-    <div v-else-if="value === 'weatherStations'" class="devide-group-listitem" v-for="(item, index) in devideGroupListData_WeatherStations" :key="'weatherStations' + index">
-      <div>{{ item.name }}</div>
-      <div>{{ item.value }}</div>
-    </div>
-    <div v-else-if="value === 'other'" class="devide-group-listitem" v-for="(item, index) in devideGroupListData_Other" :key="'other' + index">
-      <div>{{ item.name }}</div>
-      <div>{{ item.value }}</div>
+    <div v-else="value === 'other'">
+      <div class="devide-group-listitem">
+        <div>遥控</div>
+        <div>{{ other.remote_control }}</div>
+      </div>
+      <div  class="devide-group-listitem">
+        <div>夜间降落</div>
+        <div>{{ other.night_landing }}</div>
+      </div>
+      <div  class="devide-group-listitem">
+        <div>适配机型</div>
+        <div>{{ other.current_drone_model }}</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, VueElement } from 'vue'
+
+let weatherStation = ref({});
+let charge = ref({});
+let other = ref({});
+
+// websocket 数据获取
+const socket = new WebSocket('ws://222.95.84.151:37170/shelters/api/websocket/'+1);
+socket.onopen = function() {
+  // console.log('连接成功');
+}
+socket.onmessage = function(e) {
+ let { WeatherStation, Charge, Other } = JSON.parse(e.data).data
+ weatherStation.value = WeatherStation
+ charge.value = Charge
+ other.value = Other
+}
+
 const value = ref('weatherStation')
 const options = [
   {
@@ -44,94 +100,10 @@ const options = [
     label: '充电',
   },
   {
-    value: 'weatherStations',
-    label: '气象站',
-  },
-  {
     value: 'other',
     label: '其他',
   }
 ]
-const devideGroupListData_WeatherStation = reactive([
-  {
-    name: '实际温度值',
-    value: '25°C'
-  },
-  {
-    name: '温度值',
-    value: '25°C'
-  },
-  {
-    name: '湿度',
-    value: '36%'
-  },
-  {
-    name: '风速',
-    value: '36m/s'
-  },
-  {
-    name: '风向',
-    value: '东风'
-  },
-  {
-    name: '雨量',
-    value: '12mm'
-  }
-])
-const devideGroupListData_Power = reactive([
-  {
-    name: '充电设备',
-    value: '正在充电'
-  },
-  {
-    name: '充电电压',
-    value: '100V'
-  },
-  {
-    name: '充电电流',
-    value: '20A'
-  }
-])
-const devideGroupListData_WeatherStations = reactive([
-  {
-    name: '实际温度值',
-    value: '35°C'
-  },
-  {
-    name: '温度值',
-    value: '35°C'
-  },
-  {
-    name: '湿度',
-    value: '58%'
-  },
-  {
-    name: '风速',
-    value: '12m/s'
-  },
-  {
-    name: '风向',
-    value: '西北风'
-  },
-  {
-    name: '雨量',
-    value: '66mm'
-  }
-])
-const devideGroupListData_Other = reactive([
-  {
-    name: '遥控',
-    value: '开机'
-  },
-  {
-    name: '夜间降落',
-    value: '开启'
-  },
-  {
-    name: '适配机型',
-    value: 'M30'
-  }
-])
 </script>
 
 <style scoped>

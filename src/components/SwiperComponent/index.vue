@@ -1,47 +1,18 @@
 <template>
 	<div class="swiper-image">
 		<div class="image-container">
-			<img :src="img" alt="" v-for="(img,index) in props.images" :key="index"/>
+      <img src="../../assets/image/m300.png" alt="">
 		</div>
-    <div class="prev" @click="goPrev">
+    <div class="prev">
       <img src="../../assets/image/left-button.png">
     </div>
-	  <div class="next" @click="goNext">
+	  <div class="next">
       <img src="../../assets/image/right-button.png">
     </div> 
 	</div>
 </template>
 <script setup>
-import { ref, reactive, onMounted, defineProps } from 'vue';
-const props = defineProps({
-  images: {
-    type: Array,
-    default: []
-  }
-})
-let currentIndex = ref(0)
-// 切换图片
-function changeImg(i) {
-  document.querySelector(".image-container").style.transform = `translate(${-375 * i}px)`;
-}
-// 点击上一张图片
-function goPrev() {
-  if(currentIndex.value === 0){
-    currentIndex.value = props.images.length - 1
-  }else{
-    currentIndex.value--;
-  };
-  changeImg(currentIndex.value);
-}
-// 点击下一张图片
-function goNext() {
-  if(currentIndex.value === props.images.length - 1){
-    currentIndex.value = 0
-  }else{
-    currentIndex.value++;
-  };
-  changeImg(currentIndex.value);
-}
+
 </script>
 
 <style scoped>
@@ -53,15 +24,16 @@ function goNext() {
 }
 .image-container{
   /* 图片列表容器宽度：图片高度*图片个数 */
-  width:1500px;
-  height:234px;
+  width:375px;
+  height:222px;
   display:flex;
   justify-content: space-around;
   margin-top: 12px;
 }
 .image-container img {
   width:236px;
-  height:174px;
+  height:121px;
+  margin-top: 36px;
 }
 .prev img {
   width: 21.84px;

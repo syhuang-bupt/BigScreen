@@ -1,44 +1,43 @@
 <template>
   <div class="bottom-bar-container">
-    <div class="bottom-bar-item" @click="openClick()">
-      <img src="../../assets/image/Slice 11@2x.png" alt="">
+    <div class="bottom-bar-item">
+      <img v-if="bottomBarData.open" src="../../assets/image/open_1.png" alt="">
+      <img v-else src="../../assets/image/open_0.png" alt="">
       <div class="bottom-bar-item-text">正在打开</div>
     </div>
-    <div class="bottom-bar-item" @click="closeClick()">
-      <img src="../../assets/image/Slice 12@2x.png" alt="">
+    <div class="bottom-bar-item">
+      <img v-if="bottomBarData.close" src="../../assets/image/close_1.png" alt="">
+      <img v-else src="../../assets/image/close_0.png" alt="">
       <div class="bottom-bar-item-text">正在关闭</div>
     </div>
-    <div class="bottom-bar-item" @click="backClick()">
-      <img src="../../assets/image/Slice 13@2x.png" alt="">
+    <div class="bottom-bar-item">
+      <img v-if="bottomBarData.backing" src="../../assets/image/backing_1.png" alt="">
+      <img v-else src="../../assets/image/backing_0.png" alt="">
       <div class="bottom-bar-item-text">正在归中</div>
     </div>
-    <div class="bottom-bar-item" @click="resetClick()">
-      <img src="../../assets/image/Slice 14@2x.png" alt="">
+    <div class="bottom-bar-item">
+      <img v-if="bottomBarData.reset" src="../../assets/image/reset_1.png" alt="">
+      <img v-else src="../../assets/image/reset_0.png" alt="">
       <div class="bottom-bar-item-text">复位中</div>
     </div>
-    <div class="bottom-bar-item" @click="chargeClick()">
-      <img src="../../assets/image/Slice 15@2x.png" alt="">
+    <div class="bottom-bar-item">
+      <img v-if="bottomBarData.charge" src="../../assets/image/charge_1.png" alt="">
+      <img v-else src="../../assets/image/charge_0.png" alt="">
       <div class="bottom-bar-item-text">正在充电</div>
     </div>
   </div>
 </template>
 
 <script setup>
-function openClick() {
-  console.log("正在打开按钮被点击了");
-}
-function closeClick() {
-  console.log("正在关闭按钮被点击了");
-}
-function backClick() {
-  console.log("正在归中按钮被点击了");
-}
-function resetClick() {
-  console.log("复位中按钮被点击了");
-}
-function chargeClick() {
-  console.log("正在充电按钮被点击了");
-}
+import { reactive } from 'vue';
+
+const bottomBarData = reactive({
+  open: true,
+  close: false,
+  backing: false,
+  reset: false,
+  charge: false
+})
 </script>
 
 <style scoped>

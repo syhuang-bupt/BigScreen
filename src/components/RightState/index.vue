@@ -1,7 +1,8 @@
 <template>
   <div class="right-device">
-    <div class="right-arrow">
-      <img src="../../assets/image/Slice 24@2x.png">
+    <div class="right-arrow" @click="rightArrowClick">
+      <img v-if="props.rightArrowState" src="../../assets/image/Slice 24@2x.png">
+      <img v-else src="../../assets/image/Slice 25@2x.png">
     </div>
     <div class="top-device">
       <div class="device-title">
@@ -12,7 +13,7 @@
         </span>
       </div>
       <div class="top-device-content">
-        <img src="../../assets/image/RightStateVideo.png" class="right-video">
+        <live-player :video-url="videoUrl" :controls="false"  show-custom-button="true" autoplay="true" aspect="16:9" resolution="yh,fhd,hd,sd" resolutiondefault="fhd"></live-player>
       </div>
     </div>
     <div class="center-device">
@@ -47,17 +48,15 @@
             <div class="card-item-text-t">信号</div>
             <div class="card-item-text-c">
               <span>{{ UAVState.signal }}</span>
-              <span class="card-item-text-c-symbol">%</span>
             </div>
           </div>
         </div>
         <div class="card-item">
           <img src="../../assets/image/Slice 7@2x.png">
           <div class="card-item-text">
-            <div class="card-item-text-t">卫星信号</div>
+            <div class="card-item-text-t">GPS信号</div>
             <div class="card-item-text-c">
               <span>{{ UAVState.satelliteSignal }}</span>
-              <span class="card-item-text-c-symbol">%</span>
             </div>
           </div>
         </div>
@@ -99,17 +98,39 @@
 
 <script setup>
 import CabinStatus from '../CabinStatus/index.vue'
-import { reactive } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
+
+let videoUrl = ref("webrtc://222.95.84.130:40080"+"/index/api/webrtc?app=live&stream=99&type=play");
+
+let fnEmit = defineEmits(['dropRight', 'switchVideo']);
+let props = defineProps({
+  rightArrowState: {
+    type: Boolean
+  }
+})
+
+let arrowState = ref(true);
+
 const UAVState = reactive({
-  power: 100,
-  verticalSpeed: 4,
-  signal: 100,
-  satelliteSignal: 100,
-  flySpeed: 100,
-  flyHeight: 200
+  power: 90,
+  verticalSpeed: 2,
+  signal: '高',
+  satelliteSignal: '强',
+  flySpeed: 12,
+  flyHeight: 128
 })
 function videoSwitchClick() {
-  console.log('点击了视频切换按钮');
+  fnEmit('switchVideo');
+  if(videoUrl.value === "webrtc://222.95.84.130:40080"+"/index/api/webrtc?app=live&stream=99&type=play") {
+    videoUrl.value = "webrtc://222.95.84.130:40080"+"/index/api/webrtc?app=live&stream=100&type=play"
+  } else {
+    videoUrl.value = "webrtc://222.95.84.130:40080"+"/index/api/webrtc?app=live&stream=99&type=play"
+  }
+}
+
+const rightArrowClick = () => {
+  fnEmit('dropRight', arrowState);
+  arrowState = !arrowState
 }
 </script>
 
@@ -119,8 +140,14 @@ function videoSwitchClick() {
 }
 .right-arrow {
   position: absolute;
-  left: 6%;
-  top: 50%;
+  left: 3%;
+  top: 49%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor:pointer;
 }
 .top-device {
   width: 375px;
@@ -130,7 +157,7 @@ function videoSwitchClick() {
   background-image: url("../../assets/image/Slice 17@2x.png");
   padding-top: 1px;
 }
-.right-video {
+.top-device-content {
   width: 336px;
   height: 172px;
   margin-top: 22px;
@@ -195,12 +222,12 @@ function videoSwitchClick() {
   margin-left: 4px;
 }
 .bottom-device {
-    margin-top: 26px;
-    margin-left: 161px;
-    width: 375px;
-    height: 234px;
-    background-image: url("../../assets/image/Slice 17@2x.png");
-    padding-top: 1px;
+  margin-top: 26px;
+  margin-left: 161px;
+  width: 375px;
+  height: 234px;
+  background-image: url("../../assets/image/Slice 17@2x.png");
+  padding-top: 1px;
 }
 .cabin-status-container {
   margin-left: 9px;
